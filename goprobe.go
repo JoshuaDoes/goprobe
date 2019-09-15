@@ -115,17 +115,17 @@ func ProbeMedia(filename string) (*Probe, error) {
 
 	err := ffprobe.Start()
 	if err != nil {
-		return nil, errors.New("Could not start ffprobe process")
+		return nil, errors.New("goprobe: could not start ffprobe process")
 	}
 
 	err = ffprobe.Wait()
 	if err != nil {
-		return nil, errors.New("ffprobe ended unexpectedly: " + fmt.Sprintf("%v", err))
+		return nil, errors.New("goprobe: ffprobe ended unexpectedly: " + fmt.Sprintf("%v", err))
 	}
 
 	err = json.Unmarshal(buffer.Bytes(), &probe)
 	if err != nil {
-		return nil, errors.New("Could not unmarshal JSON: " + fmt.Sprintf("%v", err))
+		return nil, errors.New("goprobe: could not unmarshal JSON: " + fmt.Sprintf("%v", err))
 	}
 
 	if probe.Format == nil {
